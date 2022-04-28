@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "projecet-node",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PNC-NODE-PROJECT/G20-NODE-PROJECT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PNC-NODE-PROJECT/G20-NODE-PROJECT/issues"
+  },
+  "homepage": "https://github.com/PNC-NODE-PROJECT/G20-NODE-PROJECT#readme",
+  "description": ""
+}
