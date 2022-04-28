@@ -6,36 +6,47 @@ const { v4: uuidv4 } = require('uuid');
 let readFile = (filename) => JSON.parse(fs.readFileSync(filename))
 let writeFile = (filename, data) => fs.writeFileSync(filename, JSON.stringify(data))
 
-let quizes = readFile('quizes.json')
-
 router.get('/', (req, res) => {
+    let quizes = readFile('quizes.json');
     res.send(quizes)
 })
 
 router.post('/', (req, res) => {
-    if (req.body.answerA !== undefined && req.body.answerB !== undefined && req.body.answerC !== undefined && req.body.answerD !== undefined) {
-
-        let quiz = [{
+    let quizes = readFile('quizes.json');
+    let questions = req.body.question;
+    let answers = req.body.answers;
+    if (req.body.questions !== questions && req.body.answers !== undefined ) {
+        let quiz = {
             'id' : uuidv4(),
-            "question":"Hello ",
-            "answer":{  
-                'answerA': req.body.answerA,
-                'answerB': req.body.answerB,
-                'answerC': req.body.answerC,
-                'answerD': req.body.answerD,
-                
-            },
+            "question":questions,
+            "answers":answers,
             "correct":"bb"
-
-        }]
-
-        quizes.push(quiz)
-        writeFile('quizes.json', quizes)
+        }
+        quizes.push(quiz);
+        writeFile('quizes.json', quizes);
         res.status(201).send({"message" : 'Quiz added successfully'})
     } else {
-        res.status(500).send({"message" : 'All field required'})
+        res.status(500).send({"message" : 'All field required'});
     }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // router.delete('/:id', (req, res) => {
 //    let id = req.params.id
