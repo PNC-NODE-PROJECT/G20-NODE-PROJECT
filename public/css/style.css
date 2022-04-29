@@ -1,6 +1,6 @@
 :root {
-  --main-color: #750579;
-  --main-color-light: rgb(185, 185, 185);
+  --main-color: #5042c7;
+  --main-color-light: rgb(234, 213, 213);
   --grey-color: #b6b6b6;
 }
 
@@ -103,7 +103,7 @@ button:active {
 
 /* --------------- EDIT VIEW STYLE   ---------------   */
 #questions-view {
-  background-color: var(--main-color-light);
+  /* background-color: var(--main-color-light); */
   
   width: 100%;
 
@@ -124,8 +124,9 @@ button:active {
   background-color: white;
   border-radius: 15px;
   padding: 10px;
-  width: 100%;
-  margin: 10px 0;
+  width: 60%;
+  margin: auto;
+  margin-top: 10px;
  
   
 }
@@ -145,6 +146,7 @@ button:active {
   width: 60%;
   padding: 2px; 
   border: 1px solid;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -161,10 +163,11 @@ button:active {
 }
 
 .actions {
-  width: 10%;
+  width: 16%;
   display: flex;
   justify-content: space-between;
-  padding: 5px;
+
+  padding: 2px;
   cursor: pointer;
 }
 .actions img {
