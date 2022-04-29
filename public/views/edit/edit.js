@@ -58,7 +58,7 @@ function renderQuestions(questions) {
     answer_1.id = 'A';
     let para_1 = document.createElement('p');
     answer_1.appendChild(para_1);
-    para_1.textContent =add_question.answer["a"];
+    para_1.textContent =add_question.answer.answer_a;
     let icon_true = document.createElement('i');
     icon_true.className= 'fa fa-check-circle-o';
     
@@ -68,19 +68,19 @@ function renderQuestions(questions) {
     answer_2.id ='B';
     let para_2 = document.createElement('p');
     answer_2.appendChild(para_2);
-    para_2.textContent =add_question.answer["b"];
+    para_2.textContent =add_question.answer.answer_b;
     let answer_3 =document.createElement('div');
     answer_3.className = 'answer';
     answer_3.id ='C';
     let para_3 = document.createElement('p');
     answer_3.appendChild (para_3);
-    para_3 .textContent =add_question.answer["c"];
+    para_3 .textContent =add_question.answer.answer_c;
     let answer_4 =document.createElement('div');
     answer_4.className = 'answer';
     answer_4.id ='D';
     let para_4 = document.createElement('p');
     answer_4.appendChild(para_4);
-    para_4.textContent =add_question.answer["d"];
+    para_4.textContent =add_question.answer.answer_d;
 
     answers_container.appendChild(answer_1);
     answers_container.appendChild(answer_2);
@@ -107,10 +107,6 @@ function getData(){
   })
 }
 
-function postQuestion(){
-  
-}
-
 function onAddQuestion() {
   show(dom_questions_dialog);
 }
@@ -122,19 +118,20 @@ function onCancel(e) {
 
 function onCreate() {
   hide(dom_questions_dialog);
-  let newQuestion = {};
-    newQuestion.title = document.getElementById("title").value;
-    newQuestion.correct = "A";
-    newQuestion.choiceA = document.getElementById("choiceA").value;
-    newQuestion.choiceB = document.getElementById("choiceB").value;
-    newQuestion.choiceC = document.getElementById("choiceC").value;
-    newQuestion.choiceD = document.getElementById("choiceD").value;
-    axios.post("/api/quiz").then((res)=>{
+  let newQuestion = {
+   title :document.getElementById("title").value,
+   correct : "A",
+   choiceA : document.getElementById("choiceA").value,
+   choiceB : document.getElementById("choiceB").value,
+   choiceC : document.getElementById("choiceC").value,
+   choiceD : document.getElementById("choiceD").value,
+  };
+    axios.post("/api/quiz",newQuestion).then((res)=>{
       console.log(res.data);
     })
     console.log(newQuestion);
 }
-// onCreate()
+
 // MAIN  ---------------------------------------------------------
 getData()
 
