@@ -4,7 +4,19 @@ const dom_questions_dialog = document.getElementById("questions-dialog");
 const dom_createEditButton = document.getElementById("createEditButton");
 let questionToEdit = null;
 
-// HIDE / SHOW ---------------------------------------------------------
+// HIDE / SHOW --------------------------------------------------
+function refreshDom(quizzes){
+   
+}
+function getAllQuestion() {
+  axios.get("/api/quiz").then((res)=>{
+    renderQuestions(res.data);
+    console.log(res.data);
+  })
+  
+}
+getAllQuestion();
+// --------------------------------------------------------------
 function hide(element) {
   element.style.display = "none";
 }
@@ -12,17 +24,16 @@ function hide(element) {
 function show(element) {
   element.style.display = "block";
 }
-//  EDIT ---------------------------------------------------------
+
 
 function renderQuestions(questions) {
-  // Remove the card container and create a new one
   dom_questions_container = document.getElementById("questions-container");
   dom_questions_container.remove();
   dom_questions_container = document.createElement("div");
   dom_questions_container.id = "questions-container";
   dom_questions_view.appendChild(dom_questions_container);
   let question_id =0;
-  // 2 - For all questions,  create a new div (class : item), and append it the container
+ 
   for (let index = 0; index < questions.length; index++) {
     question_id+=1;
     let add_question = questions[index];
@@ -30,8 +41,8 @@ function renderQuestions(questions) {
     card.className = "card";
     card.dataset.index = index;
     let card_header = document.createElement('div');
-    card_header.className = 'card-header';
 
+    card_header.className = 'card-header';
     card.appendChild(card_header);
     dom_questions_container.appendChild(card);
 
@@ -44,7 +55,7 @@ function renderQuestions(questions) {
     title.textContent = add_question.question;
     questionInfos.appendChild(title);
 
-    // Create spams for title and author
+
     let actions = document.createElement("div");
     actions.className = "actions";
     card_header.appendChild(actions);
@@ -103,7 +114,7 @@ function renderQuestions(questions) {
 function getData(){
   axios.get("/api/quiz").then((res)=>{
     renderQuestions(res.data);
-    console.log(res.data);
+    // console.log(res.data);
   })
 }
 
@@ -135,3 +146,4 @@ function onCreate() {
 // MAIN  ---------------------------------------------------------
 getData()
 
+    

@@ -14,34 +14,6 @@ const dom_prgress = document.getElementById('progress');
 const dom_play_view = document.getElementById('play-view');
 
 // DATA  ---------------------------------------------------------
-let questions = [
-  {
-    title: "What does HTML stand for?",
-    choiceA: "Hi Thierry More Laught",
-    choiceB: "How To move Left",
-    choiceC: "Ho Theary Missed the Laundry !",
-    choiceD: "Hypertext Markup Language",
-    correct: "D",
-  },
-  {
-    title: "What does CSS stand for?",
-    choiceA: "Cisco and Super Start",
-    choiceB: "Ci So Sa",
-    choiceC: "Cascading Style Sheets ",
-    choiceD: "I don't know !",
-    correct: "C",
-  },
-  {
-    title: "What does JS stand for?",
-    choiceA: "Junior stars",
-    choiceB: "Justing Star",
-    choiceC: "Javascript",
-    choiceD: "RonanScript",
-    correct: "C",
-  },
-];
-let score = 0;
-let currentQuestionIndex = 0;
 
 // FUNCTION  ---------------------------------------------------------
 
@@ -50,21 +22,13 @@ let progress_width = 0;
 dom_prgress.style.width= '0%';
 function progressBar(){
    
-  let storedQuestion = JSON.parse(localStorage.getItem("questions"));
+  // let storedQuestion = JSON.parse(localStorage.getItem("questions"));
   let width_question =100/storedQuestion.length;
   progress_width+=width_question ;  
   dom_prgress.style.width= progress_width+'%';
   console.log( progress_width);
-
 }
 
-function loadQuestions() {
-  let storedQuestion = JSON.parse(localStorage.getItem("questions"));
-  if (storedQuestion !== null) {
-    questions = storedQuestion;
-
-  }
-}
 
 // Hide a given element
 function hide(element) {
@@ -77,7 +41,7 @@ function show(element) {
 }
 
 function renderQuestion() {
-  let question = questions[currentQuestionIndex];
+  let question =questions[currentQuestionIndex];
   dom_question.textContent = question.title;
   dom_choiceA.textContent = question.choiceA;
   dom_choiceB.textContent = question.choiceB;
@@ -85,6 +49,10 @@ function renderQuestion() {
   dom_choiceD.textContent = question.choiceD;
   progressBar();
 }
+axios.get("/api/quiz").then((res)=>{
+  renderQuestion(res.data);
+  console.log(res.data);
+})
 
 dom_start.addEventListener("click", (event) => {
   hide(dom_start);
@@ -101,7 +69,7 @@ dom_start.addEventListener("click", (event) => {
 });
 
 function checkAnswer(choice) {
-  let question = questions[currentQuestionIndex];
+  let question = question[currentQuestionIndex];
   if (choice === question.correct) {
     score += 1;
   }
@@ -130,7 +98,7 @@ function showScore() {
   let image = "../../img/";
 
   if (scorePerCent <= 20) {
-    comment = "HUMM !";
+    comment = "BE CAREFULL !";
     image += "20.png";
   } else if (scorePerCent <= 40) {
     comment = "YOU CAN IMPROVE !";
@@ -139,10 +107,10 @@ function showScore() {
     comment = "NOT BAD BUT... !";
     image += "60.png";
   } else if (scorePerCent <= 80) {
-    comment = " GOOD !";
+    comment = " NICER !";
     image += "80.png";
   } else {
-    comment = "CRAZY AMAZING !";
+    comment = "WELL DONE !";
     image += "100.png";
   }
 
@@ -150,5 +118,5 @@ function showScore() {
   dom_score_img.src = image;
 }
 
-
-localStorage.setItem('questions', JSON.stringify(questions));
+// localStorage.setItem('questions', JSON.stringify(questions));
+ 
