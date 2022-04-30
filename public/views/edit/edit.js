@@ -4,19 +4,14 @@ const dom_questions_dialog = document.getElementById("questions-dialog");
 const dom_createEditButton = document.getElementById("createEditButton");
 let questionToEdit = null;
 
-// HIDE / SHOW --------------------------------------------------
-function refreshDom(quizzes){
-   
-}
-function getAllQuestion() {
-  axios.get("/api/quiz").then((res)=>{
-    renderQuestions(res.data);
-    console.log(res.data);
+function displayQuestion(){
+  let URL ="http://localhost/api/quiz";
+  axios.get(URL).then((result) =>{
+    let data=result.data;
+    renderQuestions(data);
   })
-  
 }
-getAllQuestion();
-// --------------------------------------------------------------
+// HIDE / SHOW ---------------------------------------------------------
 function hide(element) {
   element.style.display = "none";
 }
@@ -25,24 +20,36 @@ function show(element) {
   element.style.display = "block";
 }
 
+//  LOCAL STORAGE ---------------------------------------------------------
+function saveQuestions() {
+  localStorage.setItem("questions", JSON.stringify(questions));
+}
+
+function loadQuestions() {
+  let questionsStorage = JSON.parse(localStorage.getItem("questions"));
+  if (questionsStorage !== null) {
+    questions = questionsStorage;
+  }
+}
 
 function renderQuestions(questions) {
+  // Remove the card container and create a new one
   dom_questions_container = document.getElementById("questions-container");
   dom_questions_container.remove();
   dom_questions_container = document.createElement("div");
   dom_questions_container.id = "questions-container";
   dom_questions_view.appendChild(dom_questions_container);
   let question_id =0;
- 
+  // 2 - For all questions,  create a new div (class : item), and append it the container
   for (let index = 0; index < questions.length; index++) {
     question_id+=1;
     let add_question = questions[index];
     let card = document.createElement("div");
     card.className = "card";
-    card.dataset.index = index;
+    card.id=add_question.id;
     let card_header = document.createElement('div');
-
     card_header.className = 'card-header';
+
     card.appendChild(card_header);
     dom_questions_container.appendChild(card);
 
@@ -55,11 +62,20 @@ function renderQuestions(questions) {
     title.textContent = add_question.question;
     questionInfos.appendChild(title);
 
-
+    // Create spams for title and author
     let actions = document.createElement("div");
     actions.className = "actions";
     card_header.appendChild(actions);
 
+    let editAction = document.createElement("img");
+    editAction.src = "../../img/edit.svg";
+    editAction.addEventListener("click", editQuestion);
+    actions.appendChild(editAction);
+
+    let trashAction = document.createElement("img");
+    trashAction.src = "../../img/trash.png";
+    trashAction.addEventListener("click", removeQuestion);
+    actions.appendChild(trashAction);
     let answers_container= document.createElement('div');
     answers_container.className ='answer-container';
     answers_container.id=question_id;
@@ -80,12 +96,16 @@ function renderQuestions(questions) {
     let para_2 = document.createElement('p');
     answer_2.appendChild(para_2);
     para_2.textContent =add_question.answer.answer_b;
+
+
     let answer_3 =document.createElement('div');
     answer_3.className = 'answer';
     answer_3.id ='C';
     let para_3 = document.createElement('p');
     answer_3.appendChild (para_3);
     para_3 .textContent =add_question.answer.answer_c;
+
+
     let answer_4 =document.createElement('div');
     answer_4.className = 'answer';
     answer_4.id ='D';
@@ -111,10 +131,27 @@ function renderQuestions(questions) {
   }
 }
 
+function editQuestion(event) {
+  //  Get the question index
+  questionToEdit = event.target.parentElement.parentElement.dataset.index;
+
+  // update the dialog with question informatin
+  let question = questions[questionToEdit];
+  document.getElementById("title").value = question.title;
+  document.getElementById("choiceA").value = question.choiceA;
+  document.getElementById("choiceB").value = question.choiceB;
+  document.getElementById("choiceC").value = question.choiceC;
+  document.getElementById("choiceD").value = question.choiceD;
+
+  // Show the dialog
+  dom_createEditButton.textContent = "EDIT";
+  show(dom_questions_dialog);
+}
+
 function getData(){
   axios.get("/api/quiz").then((res)=>{
     renderQuestions(res.data);
-    // console.log(res.data);
+    console.log(res.data);
   })
 }
 
@@ -127,6 +164,18 @@ function onCancel(e) {
   hide(dom_questions_dialog);
 }
 
+function removeQuestion(event) {
+  //  Get index
+  if (event.target.src="../../img/trash.png"){
+    let id = event.target.parentNode.parentNode.parentNode.id;
+    console.log(id);
+    axios.delete("http://localhost/api/quiz/"+id);
+    getData();
+  }
+  // Remove questionc
+
+}
+
 function onCreate() {
   hide(dom_questions_dialog);
   let newQuestion = {
@@ -137,13 +186,24 @@ function onCreate() {
    choiceC : document.getElementById("choiceC").value,
    choiceD : document.getElementById("choiceD").value,
   };
-    axios.post("/api/quiz",newQuestion).then((res)=>{
-      console.log(res.data);
-    })
+  axios.post("/api/quiz",newQuestion).then((res)=>{
+    console.log(res.data);
+    displayQuestion();
+    saveQuestions();
     console.log(newQuestion);
+  })
+
+      // 2- Save question
+
+  // 3 - Update the view
+
 }
 
-// MAIN  ---------------------------------------------------------
-getData()
 
-    
+loadQuestions();
+// MAIN  ---------------------------------------------------------
+getData();
+displayQuestion();
+
+// document.addEventListener("click",removeQuestion)
+
