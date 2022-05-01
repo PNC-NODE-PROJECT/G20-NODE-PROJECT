@@ -15,7 +15,8 @@ const dom_play_view = document.getElementById('play-view');
 
 // DATA  ---------------------------------------------------------
 
-let currentQuestionIndex = 0;
+let currentQuestionIndex = 0
+let questions = [];
 
 // FUNCTION  ---------------------------------------------------------
 
@@ -48,7 +49,7 @@ function renderQuestion() {
   // progressBar();
   let URL = "http://localhost/api/quiz";
   axios.get(URL).then((result)=>{
-    let questions = result.data;
+    questions = result.data;
     let question = questions[currentQuestionIndex];
     dom_question.textContent = question.question;
     let choice = question.answer;
@@ -120,6 +121,3 @@ function showScore() {
   dom_score_p.textContent = comment + " : " + scorePerCent + " %";
   dom_score_img.src = image;
 }
-
-
-// localStorage.setItem('questions', JSON.stringify(questions))

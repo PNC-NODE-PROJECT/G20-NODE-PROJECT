@@ -21,15 +21,8 @@ function show(element) {
 }
 
 //  LOCAL STORAGE ---------------------------------------------------------
-function saveQuestions() {
-  localStorage.setItem("questions", JSON.stringify(questions));
-}
-
 function loadQuestions() {
-  let questionsStorage = JSON.parse(localStorage.getItem("questions"));
-  if (questionsStorage !== null) {
-    questions = questionsStorage;
-  }
+
 }
 
 function renderQuestions(questions) {
@@ -134,7 +127,6 @@ function renderQuestions(questions) {
 function editQuestion(event) {
   //  Get the question index
   questionToEdit = event.target.parentElement.parentElement.dataset.index;
-
   // update the dialog with question informatin
   let question = questions[questionToEdit];
   document.getElementById("title").value = question.title;
@@ -149,7 +141,7 @@ function editQuestion(event) {
 }
 
 function getData(){
-  axios.get("/api/quiz").then((res)=>{
+  axios.get("http://localhost/api/quiz/").then((res)=>{
     renderQuestions(res.data);
     console.log(res.data);
   })
@@ -168,12 +160,10 @@ function removeQuestion(event) {
   //  Get index
   if (event.target.src="../../img/trash.png"){
     let id = event.target.parentNode.parentNode.parentNode.id;
-    console.log(id);
+    // console.log(id);
     axios.delete("http://localhost/api/quiz/"+id);
     getData();
   }
-  // Remove questionc
-
 }
 
 function onCreate() {
@@ -186,24 +176,17 @@ function onCreate() {
    choiceC : document.getElementById("choiceC").value,
    choiceD : document.getElementById("choiceD").value,
   };
-  axios.post("/api/quiz",newQuestion).then((res)=>{
+  axios.post("http://localhost/api/quiz/",newQuestion).then((res)=>{
     console.log(res.data);
     displayQuestion();
     saveQuestions();
     console.log(newQuestion);
   })
-
-      // 2- Save question
-
-  // 3 - Update the view
-
 }
-
-
 loadQuestions();
 // MAIN  ---------------------------------------------------------
 getData();
 displayQuestion();
 
-// document.addEventListener("click",removeQuestion)
+
 
