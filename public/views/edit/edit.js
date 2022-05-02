@@ -3,7 +3,7 @@ const dom_questions_view = document.getElementById("questions-view");
 const dom_questions_dialog = document.getElementById("questions-dialog");
 const dom_createEditButton = document.getElementById("createEditButton");
 let questionToEdit = null;
-
+//----------------------- REFRESH DOME-------------------------------
 function displayQuestion(){
   let URL ="http://localhost/api/quiz";
   axios.get(URL).then((result) =>{
@@ -20,13 +20,12 @@ function show(element) {
   element.style.display = "block";
 }
 
-//  LOCAL STORAGE ---------------------------------------------------------
+//  Load Data -------------------------------------------
 function loadQuestions() {
 
 }
 
 function renderQuestions(questions) {
-  // Remove the card container and create a new one
   dom_questions_container = document.getElementById("questions-container");
   dom_questions_container.remove();
   dom_questions_container = document.createElement("div");
@@ -129,7 +128,7 @@ function editQuestion(event) {
   questionToEdit = event.target.parentElement.parentElement.dataset.index;
   // update the dialog with question informatin
   let question = questions[questionToEdit];
-  document.getElementById("title").value = question.title;
+  document.getElementById("title").value = question.question;
   document.getElementById("choiceA").value = question.choiceA;
   document.getElementById("choiceB").value = question.choiceB;
   document.getElementById("choiceC").value = question.choiceC;
@@ -146,16 +145,18 @@ function getData(){
     console.log(res.data);
   })
 }
-
+//---------------------add question------------------
 function onAddQuestion() {
   show(dom_questions_dialog);
 }
 
+//---------------------concel-------------------------
 function onCancel(e) {
   dom_createEditButton.textContent = "CREATE";
   hide(dom_questions_dialog);
 }
 
+//---------------------remove question-----------------
 function removeQuestion(event) {
   //  Get index
   if (event.target.src="../../img/trash.png"){
@@ -165,7 +166,7 @@ function removeQuestion(event) {
     getData();
   }
 }
-
+//-----------------------create button-------------------
 function onCreate() {
   hide(dom_questions_dialog);
   let newQuestion = {
@@ -180,14 +181,13 @@ function onCreate() {
   axios.post("http://localhost/api/quiz/",newQuestion).then((res)=>{
     console.log(res.data);
     displayQuestion();
-    // saveQuestions();
     console.log(newQuestion);
   })
 }
-// loadQuestions();
+loadQuestions();
 // MAIN  ---------------------------------------------------------
 getData();
-// displayQuestion();
+
 
 
 

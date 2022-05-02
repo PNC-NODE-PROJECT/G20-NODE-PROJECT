@@ -1,4 +1,4 @@
-// DOMS ELEMENTS  ---------------------------------------------------------
+// DOMS ELEMENTS  -------------------------------------------
 const dom_start = document.getElementById("start");
 const dom_quiz = document.getElementById("quiz");
 const dom_question = document.getElementById("question");
@@ -13,41 +13,33 @@ const dom_score_img = document.getElementById("score_img");
 const dom_prgress = document.getElementById('progress');
 const dom_play_view = document.getElementById('play-view');
 
-// DATA  ---------------------------------------------------------
+// DATA  -----------------------------------------------------
 
 let currentQuestionIndex = 0
 let questions = [];
 let score = 0;
-
-// FUNCTION  ---------------------------------------------------------
-
-//my procress abar 
-let progress_width = 0;
-dom_prgress.style.width= '0%';
+let withprogresbar=0;
+// FUNCTION  -------------------------------------------------
+//-------------- my procress abar ----------------------------
 function progressBar(){
-  let width_question =100/storedQuestion.length;
-  progress_width+=width_question ;  
-  dom_prgress.style.width= progress_width+'%';
-  console.log( progress_width);
-
+  let width_question =parseInt(currentQuestionIndex+1/questions.length*100);
+  withprogresbar+=width_question;
+  dom_prgress.style.width= withprogresbar+'%';
+  console.log(withprogresbar);
 }
 
-function loadQuestions() {
-
-}
-
-// Hide a given element
+//---------------- Hide a given element-----------------------
 function hide(element) {
   element.style.display = "none";
 }
 
-// Show a given element
+// -----------------Show a given element----------------------
 function show(element) {
   element.style.display = "block";
 }
 
 function renderQuestion() {
-  // progressBar();
+
   let URL = "http://localhost/api/quiz";
   axios.get(URL).then((result)=>{
     questions = result.data;
@@ -66,9 +58,6 @@ function renderQuestion() {
 dom_start.addEventListener("click", (event) => {
   hide(dom_start);
   show(dom_quiz);
-  // 1 - load the questions from local storage
-  loadQuestions();
-
   // 2- Reet the question index to 0
   currentQuestionIndex = 0;
   // 2 - Render the first question
@@ -79,9 +68,12 @@ function checkAnswer(choice) {
   let question = questions[currentQuestionIndex];
   if (choice === question.correctAnswer) {
     score += 1;
-    console.log(score)
-  }
 
+
+    // console.log(score)
+    
+  }
+  progressBar();
   if (currentQuestionIndex < questions.length - 1) {
     // Go to the next question
     currentQuestionIndex += 1;
@@ -104,22 +96,21 @@ function showScore() {
   let image = "../../img/";
 
   if (scorePerCent <= 20) {
-    comment = "HUMM !";
+    comment = "TRY MORE STUDENTS!";
     image += "20.png";
   } else if (scorePerCent <= 40) {
     comment = "YOU CAN IMPROVE !";
-    image += "40.png";
+    image += "4.png";
   } else if (scorePerCent <= 60) {
-    comment = "NOT BAD BUT... !";
-    image += "60.png";
+    comment = "HE HE NICER !";
+    image += "3.png";
   } else if (scorePerCent <= 80) {
-    comment = " GOOD !";
-    image += "80.png";
+    comment = " WOOW VERY GOOD !";
+    image += "2.png";
   } else {
-    comment = "CRAZY AMAZING !";
-    image += "100.png";
+    comment = "WHAT! ARE YOU COPY? !";
+    image += "champoin.png";
   }
-
   dom_score_p.textContent = comment + " : " + scorePerCent + " %";
   dom_score_img.src = image;
 }

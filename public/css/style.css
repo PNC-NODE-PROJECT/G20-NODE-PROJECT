@@ -1,9 +1,8 @@
 :root {
   --main-color: #5042c7;
-  --main-color-light: rgb(234, 213, 213);
-  --grey-color: #b6b6b6;
+  --main-color-light: #c7ecee;
+  --grey-color: #be2edd;
 }
-
 /* --------------- COMMON STYLE   ------------------------------------   */
 
 body {
@@ -49,7 +48,7 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 90vw;
   height: 100vh;
 }
 /* --------------- PLAY VIEW    --------------------- ---------------   */
@@ -64,6 +63,9 @@ button:active {
   height: 100vh;
 }
 
+#addQuestion_view{
+  background-color: var(--main-color-light);
+}
 #start {
   background-color: white;
   border-radius: 20px;
@@ -78,14 +80,30 @@ button:active {
   background-color: white;
   border-radius: 20px;
   padding: 10px;
+  border-top: 3px solid #5042c7;
 }
 
 #score {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 40%;
+  height: 50vh;
+  /* border: 2px solid black; */
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-
+#scorImg{
+margin-top: 35px;
+  text-align: center;
+  width: 100%;
+}
+#score_p{
+  text-align: center;
+  font-size: 30px;
+  margin-top: 80px;
+}
 #question {
   display: flex;
   justify-content: center;
@@ -104,7 +122,6 @@ button:active {
 /* --------------- EDIT VIEW STYLE   ---------------   */
 #questions-view {
   /* background-color: var(--main-color-light); */
-  
   width: 100%;
 
 }
@@ -118,10 +135,12 @@ button:active {
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+  
 }
 .card{
   border: 1px solid var(--main-color-light);
   background-color: white;
+  border-top: 3px solid #5042c7;
   border-radius: 15px;
   padding: 10px;
   width: 60%;
@@ -184,6 +203,7 @@ button:active {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 10;
+
 }
 
 dialog {
@@ -241,14 +261,12 @@ input:focus {
   border-color: var(--main-color-light);
 }
 #progress{
-  height: 20px;
-  border: 1px solid ;
-  background: green;
+  height: 15px;
+  border: 2px solid #be2edd ;
+  background: #5042c7;
+  width: 0%;
   
 }
-
-
-
 
 /* ----------------------------- MENU (THX GROUP 8 !)   --------------------------   */
 
@@ -256,7 +274,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(128, 128, 128, 0.61);
+  background-color: #95afc0;
   position: sticky;
   top: 0;
 }
@@ -266,7 +284,8 @@ ul img {
 }
 
 ul > h2 {
-  margin-left: 30px;
+  margin-left: 400px;
+ 
 }
 
 nav img {
@@ -305,4 +324,8 @@ ul li:hover {
 
 ul h2 {
   margin-top: 5px;
+}
+nav img{
+  width: 80%;
+  height: 9vh;
 }

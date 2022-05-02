@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  <body>
+  <body id="addQuestion_view">
     <nav>
       <ul>
-        <a href="../../index.html"><img src="../../img/logo.png" /></a>
+        <a href="../../index.html"><img src="../../img/PNC.png" /></a>
         <h2>Quiz App</h2>
       </ul>
       <ul>
@@ -18,7 +18,7 @@
         <li><a href="../play/play.html">Play quiz</a></li>
       </ul>
     </nav>
-
+  <div >
     <div id="questions-dialog" style="display: none">
       <dialog open>
         <header>Create new question</header>
@@ -40,15 +40,6 @@
             <option value="D">D</option>
           </select>
         </section>
-        <!-- <label>Correct: </label>
-        <select name="" id="correct">
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C<Canvas></Canvas></option>
-          <option value="D">D</option>
-        </select>
-      </section> -->
-
         <menu>
           <button onclick="onCancel()">Cancel</button>
           <button id="createEditButton" onclick="onCreate()">Create</button>
@@ -61,6 +52,7 @@
 
       <div id="questions-container"></div>
     </div>
+  </div>
   </body>
   <script src="edit.js"></script>
 </html>
