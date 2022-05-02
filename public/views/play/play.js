@@ -17,6 +17,7 @@ const dom_play_view = document.getElementById('play-view');
 
 let currentQuestionIndex = 0
 let questions = [];
+let score = 0;
 
 // FUNCTION  ---------------------------------------------------------
 
@@ -76,8 +77,9 @@ dom_start.addEventListener("click", (event) => {
 
 function checkAnswer(choice) {
   let question = questions[currentQuestionIndex];
-  if (choice === question.correct) {
+  if (choice === question.correctAnswer) {
     score += 1;
+    console.log(score)
   }
 
   if (currentQuestionIndex < questions.length - 1) {

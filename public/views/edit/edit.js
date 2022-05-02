@@ -170,7 +170,8 @@ function onCreate() {
   hide(dom_questions_dialog);
   let newQuestion = {
    title :document.getElementById("title").value,
-   correct : "A",
+
+   correct : document.getElementById("correct").value,
    choiceA : document.getElementById("choiceA").value,
    choiceB : document.getElementById("choiceB").value,
    choiceC : document.getElementById("choiceC").value,
@@ -179,14 +180,14 @@ function onCreate() {
   axios.post("http://localhost/api/quiz/",newQuestion).then((res)=>{
     console.log(res.data);
     displayQuestion();
-    saveQuestions();
+    // saveQuestions();
     console.log(newQuestion);
   })
 }
-loadQuestions();
+// loadQuestions();
 // MAIN  ---------------------------------------------------------
 getData();
-displayQuestion();
+// displayQuestion();
 
 
 
