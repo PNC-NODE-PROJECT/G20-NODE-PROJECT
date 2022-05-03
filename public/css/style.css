@@ -1,6 +1,6 @@
 :root {
-  --main-color: #5042c7;
-  --main-color-light: #c7ecee;
+  --main-color: #8f84f6;
+  --main-color-light: #ebf4ff;
   --grey-color: #be2edd;
 }
 /* --------------- COMMON STYLE   ------------------------------------   */
@@ -274,7 +274,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #95afc0;
+  background-color: #daf0ff;
   position: sticky;
   top: 0;
 }

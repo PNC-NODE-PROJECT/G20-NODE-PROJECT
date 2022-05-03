@@ -106,10 +106,10 @@ function showScore() {
     image += "3.png";
   } else if (scorePerCent <= 80) {
     comment = " WOOW VERY GOOD !";
-    image += "2.png";
+    image += "win.png";
   } else {
-    comment = "WHAT! ARE YOU COPY? !";
-    image += "champoin.png";
+    comment = "WOW SO GREAT!!";
+    image += "5.png";
   }
   dom_score_p.textContent = comment + " : " + scorePerCent + " %";
   dom_score_img.src = image;
