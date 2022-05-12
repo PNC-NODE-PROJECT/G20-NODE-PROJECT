@@ -5,7 +5,7 @@ const dom_createEditButton = document.getElementById("createEditButton");
 let questionToEdit = null;
 //----------------------- REFRESH DOME-------------------------------
 function displayQuestion(){
-  let URL ="http://localhost/api/quiz";
+  let URL ="api/quiz";
   axios.get(URL).then((result) =>{
     let data=result.data;
     renderQuestions(data);
@@ -140,7 +140,7 @@ function editQuestion(event) {
 }
 
 function getData(){
-  axios.get("http://localhost/api/quiz/").then((res)=>{
+  axios.get("api/quiz/").then((res)=>{
     renderQuestions(res.data);
     console.log(res.data);
   })
@@ -162,7 +162,7 @@ function removeQuestion(event) {
   if (event.target.src="../../img/trash.png"){
     let id = event.target.parentNode.parentNode.parentNode.id;
     // console.log(id);
-    axios.delete("http://localhost/api/quiz/"+id);
+    axios.delete("/api/quiz/"+id);
     getData();
   }
 }
@@ -178,7 +178,7 @@ function onCreate() {
    choiceC : document.getElementById("choiceC").value,
    choiceD : document.getElementById("choiceD").value,
   };
-  axios.post("http://localhost/api/quiz/",newQuestion).then((res)=>{
+  axios.post("/api/quiz/",newQuestion).then((res)=>{
     console.log(res.data);
     displayQuestion();
     console.log(newQuestion);

@@ -40,7 +40,7 @@ function show(element) {
 
 function renderQuestion() {
 
-  let URL = "http://localhost/api/quiz";
+  let URL = "/api/quiz";
   axios.get(URL).then((result)=>{
     questions = result.data;
     let question = questions[currentQuestionIndex];

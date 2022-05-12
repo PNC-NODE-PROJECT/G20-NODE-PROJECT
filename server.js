@@ -7,7 +7,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3000;
 app.use(express.json());// To read json data in request body
 
-app.listen(PORT, () => console.log('Server Start on :' + PORT));
+app.listen(PORT, () => console.log('Server Start on :' + "http://localhost" +" click"));
 app.use(express.static('public'));
 
 
