@@ -140,7 +140,7 @@ function editQuestion(event) {
 }
 
 function getData(){
-  axios.get("api/quiz/").then((res)=>{
+  axios.get("/api/quiz/").then((res)=>{
     renderQuestions(res.data);
     console.log(res.data);
   })
